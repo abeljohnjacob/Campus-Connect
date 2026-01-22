@@ -37,5 +37,5 @@ Campus Connect is a web-based college facility management system designed to pro
 
 ## 🔗 Repository
 
-
-This repository contains the first working version of the Campus Connect project created as part of the Main Project (2026).
+https://github.com/abeljohnjacob/Campus-Connect
+This repository contains the first working version of the Campus Connect project created as part of MCA Main Project.
