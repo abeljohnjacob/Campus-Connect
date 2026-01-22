@@ -1,0 +1,133 @@
+/* RESET */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* NAVBAR */
+.custom-navbar {
+    background-color: #ffffff;
+    padding: 10px 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+}
+
+/* LOGO */
+.logo-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-right: 12px;
+}
+
+/* BRAND TEXT */
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: black;
+    letter-spacing: 0.5px;
+}
+
+.brand-tagline {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #555;
+    margin-top: 3px;
+}
+
+/* BUTTONS */
+.btn {
+    border-radius: 0 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* HERO SECTION */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    background-image: url("../images/college.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-top: 90px;
+}
+
+/* OVERLAY */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+/* HERO CONTENT */
+.hero-content {
+    position: relative;
+    height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* ================= LOGIN AND REGISTER PAGE ================= */
+
+.login-page {
+    background-color: #0d6efd;
+    min-height: 100vh;
+    padding-top: 90px;
+}
+
+/* Centering */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 90px);
+}
+
+/* Login box */
+.login-box {
+    background-color: #ffffff;
+    width: 380px;
+    padding: 35px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Login button (BLUE) */
+.btn-login-primary {
+    background-color: #0d6efd;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 10px;
+    border: none;
+}
+
+.btn-login-primary:hover {
+    background-color: #084298;
+    color: #ffffff;
+}
+
+/* Register text */
+.register-text {
+    font-size: 14px;
+}
+
+.register-link {
+    color: #0d6efd;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
