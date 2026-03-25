@@ -6,78 +6,129 @@
     <title>Campus Connect | Register</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="static/images/favicon.png">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
 
-    <!-- Bootstrap 5 -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body class="login-page">
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light custom-navbar fixed-top">
-        <div class="container-fluid">
-
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="static/images/logo.png" alt="Logo" class="logo-img">
-                <div class="brand-text">
-                    <span class="brand-title">CAMPUS CONNECT</span>
-                    <span class="brand-tagline">The College Facility Hub</span>
-                </div>
-            </a>
-
-            <div class="ms-auto">
-                <a href="/" class="btn btn-outline-primary me-2 index-btn">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-brand d-flex align-items-center" href="/">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo-img">
+            <div class="brand-text">
+                <span class="brand-title">CAMPUS CONNECT</span>
+                <span class="brand-tagline">The College Facility Hub</span>
             </div>
-
         </div>
-    </nav>
-
-    <!-- REGISTER BOX -->
-    <div class="login-wrapper">
-        <div class="login-box">
-
-            <h3 class="text-center mb-4 fw-bold"><b>REGISTER</b></h3>
-
-            <form>
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter your name">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Email</label>
-                    <input type="email" class="form-control" placeholder="Enter your email">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Password</label>
-                    <input type="password" class="form-control" placeholder="Create password">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Confirm Password</label>
-                    <input type="password" class="form-control" placeholder="Confirm password">
-                </div>
-
-                <button type="submit" class="btn btn-login-primary w-100 mt-3">
-                    REGISTER
-                </button>
-            </form>
-
-            <div class="text-center mt-3 register-text">
-                Already have an account?
-                <a href="/login" class="register-link">Login</a>
-            </div>
-
+        
+        <div class="ms-auto">
+            <a href="/" class="btn btn-primary me-2 index-btn"><b>Home</b></a>
         </div>
     </div>
+</nav>
+
+<div class="login-wrapper">
+    <div class="register-box">
+
+        <h3 class="text-center mb-4 fw-bold"><b>REGISTER</b></h3>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} text-center">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form id="registerForm" method="POST">
+
+            <div class="row">
+
+                <!-- First 4 fields: browser default validation -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Full Name</label>
+                    <input type="text" name="full_name" class="form-control" placeholder="Enter your name" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Contact No.</label>
+                    <input type="tel" name="contact" class="form-control" placeholder="Enter your contact number" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Register No.</label>
+                    <input type="text" name="register_no" class="form-control" placeholder="Enter your register number" required>
+                </div>
+
+                <!-- Programme (NO validation) -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Programme</label>
+                    <select class="form-select" name="programme" id="programme">
+                        <option value="" selected hidden>Select programme</option>
+                        <option value="MCA">MCA</option>
+                        <option value="MBA">MBA</option>
+                        <option value="B-Tech CS Engineering">B-Tech CS Engineering</option>
+                        <option value="B-Tech Mechanical Engineering">B-Tech Mechanical Engineering</option>
+                        <option value="B-Tech E&E Engineering">B-Tech E&E Engineering</option>
+                    </select>
+                </div>
+
+                <!-- Semester (NO validation) -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Semester</label>
+                    <select class="form-select" name="semester" id="semester">
+                        <option value="" selected hidden>Select semester</option>
+                    </select>
+                </div>
+
+                <!-- Password -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Create password" required>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-login-primary px-5">
+                    REGISTER
+                </button>
+            </div>
+
+        </form>
+
+        <div class="text-center mt-3 register-text">
+            Already have an account?
+            <a href="/login" class="register-link">Login</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- EXTERNAL JS -->
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
 
 </body>
 </html>

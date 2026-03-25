@@ -1,55 +1,654 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Campus Connect</title>
+    <title>Campus Connect | Home</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="static/images/favicon.png">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
 
-    <!-- Bootstrap 5 -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #core-strengths {
+            scroll-margin-top: 110px; /* adjust based on navbar height */
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2ff, #f9fafc);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .brand-title {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .brand-tagline {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1420px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .main-container {
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #6366f1, #7c3aed);
+            border-radius: 22px;
+            padding: 25px 35px; /* balanced padding */
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+
+        .hero h2 {
+            font-weight: 700;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            right: -50px;
+            top: -50px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            bottom: -40px;
+            left: -40px;
+        }
+
+        .home-carousel {
+            margin-top: 78px;
+            width: 100%;
+        }
+
+        .carousel-control-prev-icon{
+            background-color: rgba(0, 0, 0, 0.6); /* dark background */
+            border-radius: 50%;
+            padding: 20px;
+            background-size: 60%;
+        }
+        
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.6); /* dark background */
+            border-radius: 50%;
+            padding: 20px;
+            background-size: 60%;
+        }
+
+        @font-face {
+            font-family: 'Felix Titling';
+            src: local('Felix Titling');
+        }
+
+        .custom-caption {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            bottom: auto;
+            text-align: center;
+            width: 100%;
+        }
+
+        .custom-caption h2 {
+            font-family: 'Felix Titling', serif;
+            font-size: 42px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            letter-spacing: 1px;
+        }
+
+        .custom-btn {
+            border: 3px solid white;
+            color: white;
+            background: transparent;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 1px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .custom-btn:hover {
+            border: 3px solid white;
+            background: white;
+            color: black;
+        }
+
+        .flash-news {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background: #111;
+            color: white;
+            margin-top: 0;
+            white-space: nowrap;   
+            overflow: hidden;      
+        }
+
+        .flash-label {
+            background: #ff0000;
+            padding: 10px 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        .flash-content {
+            flex: 1;
+            padding: 8px 10px;
+            font-weight: 600;
+            font-size: 14px;
+            flex: 1;
+            overflow: hidden;   /* important */
+        }
+
+        .ticker {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .ticker-move {
+            display: inline-block;
+            padding-left: 100%;
+            animation: tickerMove 60s linear infinite;
+        }
+
+        @keyframes tickerMove {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .hero-sub {
+            opacity: 0.9;
+        }
+
+        .hero-datetime {
+            width: 118px;
+            height: 118px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid rgba(255,255,255,0.7);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            background: #ff5f00;
+            backdrop-filter: blur(6px);
+            color: white;
+            text-align: center;
+        }
+
+        #current-date {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        #current-day {
+            font-size: 14px;
+            margin-top: 3px;
+            opacity: 0.9;
+        }
+
+        #current-time {
+            font-size: 14px;
+            margin-top: 3px;
+            opacity: 0.9;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            border: 1px solid #f1f3f8;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #6366f1;
+        }
+
+        .content-box {
+            background: white;
+            padding: 25px 35px; 
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            border: 1px solid #f1f3f8;
+        }
+
+        .content-box p {
+            margin-bottom: 30px;
+            text-align: justify;
+            line-height: 1.8;  
+        }
+
+        .content-box ul {
+            margin-bottom: 30px;
+        }
+
+        .content-box p + ul {
+            margin-top: -22px;   
+        }
+
+
+        .content-box li {
+            margin-bottom: 6px;
+        }
+
+        .content-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .custom-points {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        .custom-points li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            color: inherit;          
+            font-size: inherit;     
+            font-family: inherit;    
+        }   
+
+        .custom-points li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #7c3aed;
+            font-size: 16px;
+        }
+
+        .quick-card {
+            border-radius: 20px;
+            padding: 35px 20px;
+            background: white;
+            text-align: center;
+            transition: .3s;
+            height: 100%;
+            border: 1px solid #f1f3f8;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .quick-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 28px 60px rgba(0,0,0,0.15);
+        }
+
+        .quick-icon {
+            width: 65px;
+            height: 65px;
+            margin: auto;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            background: linear-gradient(135deg, #6366f1, #7c3aed);
+            color: white;
+        }
+
+        footer a {
+            transition: 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.7;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light custom-navbar fixed-top">
-        <div class="container-fluid">
 
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="static/images/logo.png" alt="Logo" class="logo-img">
-                <div class="brand-text">
-                    <span class="brand-title">CAMPUS CONNECT</span>
-                    <span class="brand-tagline">The College Facility Hub</span>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-brand d-flex align-items-center">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo-img">
+            <div class="brand-text">
+                <span class="brand-title">CAMPUS CONNECT</span>
+                <span class="brand-tagline">The College Facility Hub</span>
+            </div>
+        </div>
+
+        <div class="ms-auto">
+            <a href="/login" class="btn btn-success me-2"><b>Login</b></a>
+            <a href="/register" class="btn btn-warning me-2"><b>Register</b></a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- CAROUSEL -->
+<div id="homeCarousel" class="carousel slide home-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+        <div class="carousel-item active position-relative">
+            <img src="{{ url_for('static', filename='images/carousel1.jpg') }}" class="d-block w-100">
+            <div class="carousel-caption custom-caption">
+                <h2>A smarter way to manage your campus</h2>
+                <div class="mt-3">
+                    <a href="/register" class="btn custom-btn me-2">Get Started</a>
+                    <a href="#core-strengths" class="btn custom-btn">Learn More</a>
                 </div>
-            </a>
+            </div>
+        </div>
 
-            <div class="ms-auto">
-                <a href="/login" class="btn btn-outline-primary me-2 login-btn">Login</a>
-                <a href="/register" class="btn btn-primary register-btn">Register</a>
+        <div class="carousel-item">
+            <img src="{{ url_for('static', filename='images/carousel2.jpg') }}" class="d-block w-100">
+            <div class="carousel-caption custom-caption">
+                <h2>A smarter way to manage your campus</h2>
+                <div class="mt-3">
+                    <a href="/register" class="btn custom-btn me-2">Get Started</a>
+                    <a href="#core-strengths" class="btn custom-btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<!-- FLASH NEWS -->
+<div class="flash-news">
+    <div class="flash-label">FLASH NEWS</div>
+    <div class="flash-content">
+        <div class="ticker">
+            <div class="ticker-move">
+                📢 International Conference on Smart Communication and Sustainable Technologies (ICSCST 2026) scheduled for 18 – 20 June 2026 - Submit your paper @icscst2026.saintgits.in &nbsp;&nbsp;|&nbsp;&nbsp;
+                📢 TEDxSaintgits - recruitment to TEDxSaintgits open &nbsp;&nbsp;|&nbsp;&nbsp;
+                📢 ASCE Saintgits Student Chapter bagged Third Prize at ASCE National Concrete Canoe Competition, hosted by Punjab Engineering College, Chandigarh. &nbsp;&nbsp;|&nbsp;&nbsp;
+                📢 Saintgits wins the prestigious IDA – STEM Award for Community Development.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container main-container">
+
+    <!-- HERO -->
+    <div class="hero mb-4 d-flex align-items-center justify-content-between">
+        <div>
+            <h2>Welcome to Campus Connect!</h2>
+            <p class="hero-sub mb-0">
+                Brings together students and faculties into a single platform
+            </p>
+        </div>
+
+        <div class="text-end">
+            <div class="hero-datetime">
+                <div id="current-date"></div>
+                <div id="current-day"></div>
+                <div id="current-time"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card text-center">
+                <div class="text-muted"><b>Total Students</b></div>
+                <div class="stat-number"><b>{{ total_students }}</b></div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card text-center">
+                <div class="text-muted"><b>Total Faculties</b></div>
+                <div class="stat-number"><b>{{ total_faculties }}</b></div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card text-center">
+                <div class="text-muted"><b>Total Venues</b></div>
+                <div class="stat-number"><b>{{ total_venues }}</b></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CORE STRENGTHS -->
+    <div class="mt-5" id="core-strengths">
+        <h4 class="section-title mb-4">Core Strengths</h4>
+
+        <div class="row g-4">
+
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="quick-card">
+                    <div class="quick-icon">
+                        <i class="bi bi-diagram-3"></i>
+                    </div>
+
+                    <div class="card-header text-center"><b>Centralized Management</b></div>
+                    <small class="text-muted">All student, faculty and campus data in one unified system.</small>
+                </div>
             </div>
 
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="quick-card">
+                    <div class="quick-icon">
+                        <i class="bi bi-person-lock"></i>
+                    </div>
+
+                    <div class="card-header text-center"><b>Role Based Access</b></div>
+                    <small class="text-muted">Secure login for admin, faculty and students.</small>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="quick-card">
+                    <div class="quick-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+
+                    <div class="card-header text-center"><b>Scalability</b></div>
+                    <small class="text-muted">Designed for future expansions and upgrades.</small>
+                </div>
+            </div>
         </div>
-    </nav>
+    </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-        <div class="hero-overlay"></div>
+    <!-- ABOUT SECTION -->
+    <div class="mt-5">
+        <h4 class="section-title mb-3">About the Platform</h4>
 
-        <div class="hero-content">
-            <h1><b>Welcome to Campus Connect<b></h1>
-            <h4><b>It's your space, just a click away<b></h4>
+        <div class="content-box">
+            <p>
+                Campus Connect is an integrated college management platform designed to streamline academic and 
+                institutional operations, founded with a vision to simplify and modernize campus administration.
+                The platform bridges the gap between administration, faculty, and students by offering a centralized 
+                digital ecosystem for managing academic records, faculty coordination, scheduling, and institutional activities.
+                It is built to enhance efficiency, transparency, and communication within educational institutions. 
+                With a structured and user friendly interface, the system enables administrators to manage student and teacher 
+                records, academic sessions, timetables, events, and other essential campus operations seamlessly.
+            </p>
+
+            <p>The platform focuses on delivering:</p>
+
+            <ul class="custom-points">
+                <li>Structured and centralized data management system</li>
+                <li>Secure role-based access control (Admin, Faculty, Student dashboards)</li>
+                <li>Organized academic scheduling and timetable coordination</li>
+                <li>Efficient event and session management modules</li>
+                <li>Scalable architecture ready for advanced analytics and attendance tracking</li>
+            </ul>
+
+            <p>
+                Designed with future expansion in mind, Campus Connect can be extended to include
+                attendance management, performance tracking, digital ID systems, and advanced analytics modules.
+                Through thoughtful design and modern development practices, Campus Connect aims to serve as a reliable digital backbone 
+                for colleges seeking smarter, more efficient, and technology-driven administrative solutions.
+            </p>
         </div>
-    </section>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AVAILABLE FEATURES -->
+    <div class="mt-5">
+        <h4 class="section-title mb-4">Available Features</h4>
+
+        <div class="row g-4">
+
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="quick-card">
+                    <div class="quick-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
+
+                    <div class="card-header text-center"><b>Venue Booking</b></div>
+                    <small class="text-muted">Efficiently reserve and manage campus venues through a centralized booking system.</small>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="quick-card">
+                    <div class="quick-icon">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+
+                    <div class="card-header text-center"><b>View Schedules</b></div>
+                    <small class="text-muted">Access and monitor academic schedules for sessions, events in real time.</small>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="quick-card">
+                    <div class="quick-icon">
+                        <i class="bi bi-megaphone"></i>
+                    </div>
+
+                    <div class="card-header text-center"><b>Event Announcements</b></div>
+                    <small class="text-muted">Stay informed with timely updates and official event announcements across the campus platform.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="mt-5" style="background: linear-gradient(135deg, #6366f1, #7c3aed); color: white;">
+    <div class="container py-4 text-center">
+
+        <!-- Buttons Row -->
+        <div class="mb-3">
+            <a href="#" class="text-white me-3"><i class="bi bi-house-door"></i></a>
+            <a href="/login" class="text-white me-3"><i class="bi bi-box-arrow-in-right"></i></a>
+            <a href="/register" class="text-white"><i class="bi bi-person-plus"></i></a>
+        </div>
+
+        <!-- Copyright -->
+        <div>
+            <small>© 2026 Campus Connect — All Rights Reserved</small>
+        </div>
+    </div>
+</footer>
+
+<script>
+
+function updateDateTime() {
+    const now = new Date();
+
+    const date = now.toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    }).toUpperCase();
+
+    const day = now.toLocaleDateString('en-IN', {
+        weekday: 'long'
+    });
+
+    let time = now.toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    }).toUpperCase();
+
+    document.getElementById("current-date").innerText = date;
+    document.getElementById("current-day").innerText = day;
+    document.getElementById("current-time").innerText = time;
+}
+
+updateDateTime();
+
+const now = new Date();
+const delay = 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+
+setTimeout(() => {
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+}, delay);
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
-
 </html>

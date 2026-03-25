@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Campus Connect | Admin Add Venue</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            color: black;
+        }
+
+        .dashboard-title {
+            font-weight: 700;
+            font-size: 36px;
+            color: white;
+            text-align: center;
+            margin-top: 130px;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        /* File input styling */
+        input[type="file"] {
+            background-color: white;
+            border: 1px solid #cfd4da;
+        }
+
+        input[type="file"]::file-selector-button {
+            background-color: #c0c0c0;
+            border: 1px solid #cfd4da;
+            padding: 6px 12px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #dad3cfc5;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-brand d-flex align-items-center">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo-img">
+            <div class="brand-text">
+                <span class="brand-title">CAMPUS CONNECT</span>
+                <span class="brand-tagline">The College Facility Hub</span>
+            </div>
+        </div>
+
+        <div class="ms-auto">
+            <a href="{{ url_for('admin_manage_venues') }}" class="btn btn-primary me-2"><b>Back</b></a>
+        </div>
+
+    </div>
+</nav>
+
+<div class="dashboard-title">
+    <b>ADD VENUE</b>
+</div>
+
+<!-- FORM -->
+<div class="container d-flex justify-content-center">
+    <div class="register-box">
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+
+                <!-- NAME -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Venue Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter venue name" required>
+                </div>
+
+                <!-- TYPE -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Venue Type</label>
+                    <select name="type" class="form-select" required>
+                        <option value="" hidden selected>Select type</option>
+                        <option>Room</option>
+                        <option>Lab</option>
+                        <option>Hall</option>
+                        <option>Outdoor Space</option>
+                    </select>
+                </div>
+
+                <!-- DEPARTMENT -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Department</label>
+                    <select name="department" class="form-select" required>
+                        <option value="" hidden selected>Select department</option>
+                        <option>Independent</option>
+                        <option>MCA</option>
+                        <option>MBA</option>
+                        <option>B-Tech CS Engineering</option>
+                        <option>B-Tech Mechanical Engineering</option>
+                        <option>B-Tech E&E Engineering</option>
+                    </select>
+                </div>
+
+                <!-- BLOCK -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Block</label>
+                    <select name="block" class="form-select" required>
+                        <option value="" hidden selected>Select block</option>
+                        <option>Independent</option>
+                        <option>Administrative Block</option>
+                        <option>North Block</option>
+                        <option>Ramanujan Block</option>
+                        <option>CLC Block</option>
+                        <option>Visvesvaraya Block</option>
+                        <option>Abdul Kalam Block</option>
+                    </select>
+                </div>
+
+                <!-- PHOTO -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Upload Photo</label>
+                    <input type="file" name="photo" class="form-control" accept="image/*">
+                </div>
+
+                <!-- PURPOSE -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Purpose</label>
+                    <select name="purpose" class="form-select" required>
+                        <option value="" hidden selected>Select purpose</option>
+                        <option>Session Only</option>
+                        <option>Event Only</option>
+                        <option>Hybrid</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-login-primary px-5">
+                    ADD VENUE
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

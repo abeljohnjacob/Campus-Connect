@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <title>Campus Connect | Admin Session Request</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .brand-title {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .brand-tagline {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .dashboard-title {
+            font-weight: 700;
+            font-size: 36px;
+            text-align: center;
+            margin-top: 130px;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .booking-item {
+            background: #dff1f8;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            transition: all .25s ease;
+        }
+
+        .booking-item:hover {
+            background: #b1e1f8;
+            transform: translateY(-2px);
+        }
+
+        .pro-btn{
+            border-radius: 5px !important;
+        }
+
+        .badge-approved {
+            background: #d4f6e2;
+            color: #138e40;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-rejected {
+            background: #fedede;
+            color: #dc2626;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-requested {
+            background: #faedda;
+            color: #f59e0b;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-brand d-flex align-items-center" href="/">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo-img">
+            <div class="brand-text">
+                <span class="brand-title">CAMPUS CONNECT</span>
+                <span class="brand-tagline">The College Facility Hub</span>
+            </div>
+        </div>
+
+        <div class="ms-auto">
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary me-2"><b>Back</b></a>
+        </div>
+
+    </div>
+</nav>
+
+<div class="dashboard-title">
+    <b>SESSION BOOKINGS</b>
+</div>
+
+<div class="container page-main" style="padding-bottom: 60px;">
+    {% if requests|length == 0 %}
+        <div class="d-flex justify-content-center align-items-center" style="height:50vh">
+            <p class="text-muted">No Session Bookings</p>
+        </div>
+    {% else %}
+        <div class="card shadow-sm border-0 mt-4">
+            <div class="card-body">
+                {% for r in requests %}
+                    <div class="booking-item mb-3 p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-bold">{{ r.faculty_name }} 
+                                    {% if r.status == 'approved' %}
+                                        <span class="badge-approved">Approved</span>
+                                    {% elif r.status == 'rejected' %}
+                                        <span class="badge-rejected">Rejected</span>
+                                    {% else %}
+                                        <span class="badge-requested">Requested</span>
+                                    {% endif %}
+                                </h6>       
+
+                                <small class="text-muted">
+                                    📍 {{ r.venue_name }} •
+                                    🎓 {{ r.target_batch }} •
+                                    🎯 {{ r.purpose }} <br>
+                                    📅 {{ r.date }} •
+                                    ⏰ {{ r.start_time }} - {{ r.end_time }}
+                                </small>
+                            </div>
+
+                            {% if r.status == 'requested' %}
+                            <div>
+                                <a href="/admin/approve_booking/{{ r.booking_id }}" class="btn btn-success btn-sm me-2 pro-btn"><b>Approve</b></a>
+                                <a href="/admin/reject_booking/{{ r.booking_id }}" class="btn btn-danger btn-sm pro-btn"><b>Reject</b></a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

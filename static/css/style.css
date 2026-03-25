@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* NAVBAR */
@@ -29,6 +29,7 @@ body {
 }
 
 .brand-title {
+    font-family: 'Poppins', sans-serif;
     font-size: 1.6rem;
     font-weight: 700;
     color: black;
@@ -37,6 +38,7 @@ body {
 
 .brand-tagline {
     font-size: 0.75rem;
+    font-family: 'Poppins', sans-serif;
     font-weight: 500;
     color: #555;
     margin-top: 3px;
@@ -48,39 +50,42 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* HERO SECTION */
-.hero-section {
-    position: relative;
-    height: 100vh;
-    background-image: url("../images/college.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding-top: 90px;
+.btn-primary:hover {
+    background-color: #130257;
 }
 
-/* OVERLAY */
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.35);
+.btn-success:hover {
+    background-color: #025134;
 }
 
-/* HERO CONTENT */
-.hero-content {
-    position: relative;
-    height: calc(100vh - 90px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
+.btn-danger:hover {
+    background-color: #770303;
+}
+
+.btn-warning:hover {
+    background-color: #b79004;
+}
+
+.btn-secondary:hover {
+    background-color: #333232;
+}
+
+/* ================= HOME CAROUSEL ================= */
+
+.home-carousel {
+    margin-top: 78px;   
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 350px;        
+    object-fit: cover;      
 }
 
 /* ================= LOGIN AND REGISTER PAGE ================= */
 
 .login-page {
-    background-color: #0d6efd;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     min-height: 100vh;
     padding-top: 90px;
 }
@@ -102,9 +107,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Login button (BLUE) */
+/* Login button */
 .btn-login-primary {
-    background-color: #0d6efd;
+    background-color: #06c0aa;
     color: #ffffff;
     font-weight: 600;
     letter-spacing: 1px;
@@ -113,7 +118,7 @@ body {
 }
 
 .btn-login-primary:hover {
-    background-color: #084298;
+    background-color: #037d6f;
     color: #ffffff;
 }
 
@@ -123,11 +128,20 @@ body {
 }
 
 .register-link {
-    color: #0d6efd;
+    color: #05aa97;
     font-weight: 600;
     text-decoration: none;
 }
 
 .register-link:hover {
     text-decoration: underline;
+}
+
+.register-box {
+    background-color: #ffffff;
+    max-width: 900px;   /* landscape width */
+    width: 100%;        /* responsive */
+    padding: 35px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

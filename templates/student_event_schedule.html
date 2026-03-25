@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Campus Connect | Student View Events</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f9fafc);
+        }
+
+        .brand-title {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .brand-tagline {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 110px;
+            left: 25px;
+            background: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 900;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 20px;
+            height: 3px;
+            background: #111;
+            margin: 4px 0;
+            border-radius: 2px;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 80px;
+            left: -280px;
+            width: 260px;
+            height: calc(100% - 80px);
+            background: white;
+            box-shadow: 10px 0 40px rgba(0,0,0,0.2);
+            transition: 0.35s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-overlay.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f1f3f8;
+        }
+
+        .sidebar-title {
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .close-btn {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background: #8a8b8fb0;
+        }
+
+        .sidebar-links {
+            margin: 0;
+        }
+
+        .sidebar-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 25px;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            transition: .25s;
+        }
+
+        .sidebar-links a:hover {
+            background: #eef2ff;
+            color: #4787a2;
+        }
+
+        .sidebar-links a.active {
+            background: #0a0a0a;
+            color: #f0f3f4;
+            font-weight: 600;
+        }
+
+        .sidebar-links i {
+            font-size: 18px;
+        }
+
+        .page-main {
+            margin-top: 110px;
+            margin-bottom: 60px;
+        }
+
+        .page-hero {
+            background: linear-gradient(135deg, #274755, #4787a2);
+            border-radius: 22px;
+            padding: 25px 35px;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+
+        .page-hero h2 {
+            font-weight: 700;
+        }
+
+        .hero-text {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            background: rgba(255,255,255,0.15);
+            border: 3px solid rgba(255,255,255,0.6);
+        }
+
+        .booking-item {
+            background: #f1f7fd;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            transition: all .25s ease;
+        }
+
+        .booking-item:hover {
+            background: #e1e7fd;
+            transform: translateY(-2px);
+        }
+
+        .tab-buttons{
+            margin-bottom: 20px;
+        }
+
+        .tab-buttons{
+            margin-bottom: 20px;
+        }
+
+        /* base button style */
+        .tab-buttons button {
+            border-radius: 5px !important;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 8px 18px;
+            transition: all .25s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* hover effect */
+        .tab-buttons button: hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        /* active glowing button */
+        .active-tab {
+            border-radius: 5px !important;
+            transform: translateY(-2px) scale(1.04);
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.2) inset,
+                0 0 12px rgba(0,0,0,0.15),
+                0 0 25px rgba(0,0,0,0.12);
+        }
+
+        /* premium glow for each color */
+
+        #live-btn.active-tab {
+            box-shadow:
+                0 0 12px rgba(220,53,69,.9),
+                0 0 30px rgba(220,53,69,.7),
+                0 0 60px rgba(220,53,69,.5);
+        }
+
+        #upcoming-btn.active-tab {
+            box-shadow:
+                0 0 12px rgba(25,135,84,.9),
+                0 0 30px rgba(25,135,84,.7),
+                0 0 60px rgba(25,135,84,.5);
+        }
+
+        #past-btn.active-tab {
+            box-shadow:
+                0 0 12px rgba(255,193,7,.9),
+                0 0 30px rgba(255,193,7,.7),
+                0 0 60px rgba(255,193,7,.5);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-brand d-flex align-items-center" href="/">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo-img">
+            <div class="brand-text">
+                <span class="brand-title">CAMPUS CONNECT</span>
+                <span class="brand-tagline">The College Facility Hub</span>
+            </div>
+        </div>
+
+        <div class="ms-auto">
+            <a href="{{ url_for('student_dashboard') }}" class="btn btn-primary me-2"><b>Back</b></a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- Hamburger -->
+<div class="menu-toggle" onclick="openSidebar()">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar-overlay">
+    <div class="sidebar-header">
+        <h5 class="sidebar-title"><b>MENU</b></h5>
+        <i class="bi bi-x-lg close-btn" onclick="closeSidebar()"></i>
+    </div>
+
+    <div class="sidebar-links">
+        <a href="/student_dashboard" class="{% if request.path == '/student_dashboard' %}active{% endif %}">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+
+        <a href="{{ url_for('student_view_faculties') }}" class="{% if request.path == '/student/view_faculties' %}active{% endif %}">
+            <i class="bi bi-person-badge"></i> My Faculties
+        </a>
+
+        <a href="{{ url_for('student_session_schedule') }}" class="{% if request.path == '/student/session_schedule' %}active{% endif %}">
+            <i class="bi bi-calendar-check"></i> Session Schedules
+        </a>
+
+        <a href="{{ url_for('student_event_schedule') }}" class="{% if request.path == '/student/event_schedule' %}active{% endif %}">
+            <i class="bi bi-calendar-event"></i> Event Schedules
+        </a>
+
+        <a href="{{ url_for('student_view_events') }}" class="{% if request.path == '/student/upcoming_events' %}active{% endif %}">
+            <i class="bi bi-calendar2-week"></i> Upcoming Events
+        </a>
+
+        <a href="{{ url_for('student_chatspace') }}" class="{% if request.path == '/student/chatspace' %}active{% endif %}">
+            <i class="bi bi-chat-dots"></i> Chatspace
+        </a>
+    </div>
+</div>
+
+<!-- ===== PAGE CONTENT ===== -->
+<div class="container page-main">
+    <div class="page-hero d-flex align-items-center justify-content-between">
+        <div>
+            <h2 class="hero-text">VENUE SCHEDULE FOR EVENTS</h2>
+            <p class="mb-0">Explore the live, upcoming, and past venue allocation for events.</p>
+        </div>
+
+        <div class="hero-icon">
+            <i class="bi bi-calendar2-week"></i>
+        </div>
+    </div>
+
+    <div class="tab-buttons">
+        <button id="live-btn" class="btn btn-danger me-2 active-tab" onclick="showTab('live')">Live</button>
+        <button id="upcoming-btn" class="btn btn-success me-2" onclick="showTab('upcoming')">Upcoming</button>
+        <button id="past-btn" class="btn btn-warning" onclick="showTab('past')">Past</button>
+    </div>
+
+    <!-- LIVE EVENTS -->
+    <div id="live">
+        {% if live_events|length == 0 %}
+            <div class="d-flex justify-content-center align-items-center" style="height:50vh">
+                <p class="text-muted">No live events.</p>
+            </div>
+        {% else %}
+            <div class="card shadow-sm border-0 mt-4 mb-4">
+                <div class="card-body">
+                    {% for e in live_events %}
+                        <div class="booking-item mb-4 p-3">
+                            <h6 class="fw-bold">{{ e.venue_name }}</h6>
+                            <small class="text-muted">
+                                👤 {{ e.faculty_name }} •
+                                🎯 {{ e.purpose }} <br> 
+                                📅 {{ e.date }} • 
+                                ⏰ {{ e.start_time }} - {{ e.end_time }}
+                            </small>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- UPCOMING EVENTS -->
+    <div id="upcoming" style="display:none;">
+        {% if upcoming_events|length == 0 %}
+            <div class="d-flex justify-content-center align-items-center" style="height:50vh">
+                <p class="text-muted">No upcoming events.</p>
+            </div>
+        {% else %}
+            <div class="card shadow-sm border-0 mt-4 mb-4">
+                <div class="card-body">
+                    {% for e in upcoming_events %}
+                        <div class="booking-item mb-4 p-3">
+                            <h6 class="fw-bold">{{ e.venue_name }}</h6>
+                            <small class="text-muted">
+                                👤 {{ e.faculty_name }} •
+                                🎯 {{ e.purpose }} <br> 
+                                📅 {{ e.date }} • 
+                                ⏰ {{ e.start_time }} - {{ e.end_time }}
+                            </small>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- PAST EVENTS -->
+    <div id="past" style="display:none;">
+        {% if past_events|length == 0 %}
+            <div class="d-flex justify-content-center align-items-center" style="height:50vh">
+                <p class="text-muted">No past events.</p>
+            </div>
+        {% else %}
+            <div class="card shadow-sm border-0 mt-4 mb-4">
+                <div class="card-body">
+                    {% for e in past_events %}
+                        <div class="booking-item mb-4 p-3">
+                            <h6 class="fw-bold">{{ e.venue_name }}</h6>
+                            <small class="text-muted">
+                                👤 {{ e.faculty_name }} •
+                                🎯 {{ e.purpose }} <br> 
+                                📅 {{ e.date }} • 
+                                ⏰ {{ e.start_time }} - {{ e.end_time }}
+                            </small>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+<script>
+
+function openSidebar() {
+    document.getElementById("sidebar").classList.add("active");
+}
+
+function closeSidebar() {
+    document.getElementById("sidebar").classList.remove("active");
+}
+
+function showTab(tab){
+    document.getElementById("live").style.display="none";
+    document.getElementById("upcoming").style.display="none";
+    document.getElementById("past").style.display="none";
+
+    document.getElementById(tab).style.display="block";
+
+    document.getElementById("live-btn").classList.remove("active-tab");
+    document.getElementById("upcoming-btn").classList.remove("active-tab");
+    document.getElementById("past-btn").classList.remove("active-tab");
+
+    document.getElementById(tab+"-btn").classList.add("active-tab");
+}
+
+</script>
+
+</body>
+</html>

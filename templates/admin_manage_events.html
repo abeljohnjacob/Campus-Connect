@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Campus Connect | Admin Dash</title>
+    <title>Campus Connect | Admin Manage Faculties</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
@@ -35,7 +35,6 @@
         .dashboard-title {
             font-weight: 700;
             font-size: 36px;
-            color: #72f308;
             text-align: center;
             margin-top: 130px;
             margin-bottom: 50px;
@@ -67,8 +66,6 @@
         }
 
         .card-icon img {
-            width: 80px;   
-            height: 80px;
             object-fit: contain;
         }
 
@@ -109,7 +106,7 @@
     <div class="container-fluid">
 
         <div class="navbar-brand d-flex align-items-center" href="/">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo-img">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo-img">
             <div class="brand-text">
                 <span class="brand-title">CAMPUS CONNECT</span>
                 <span class="brand-tagline">The College Facility Hub</span>
@@ -117,84 +114,45 @@
         </div>
 
         <div class="ms-auto">
-            <a href="{{ url_for('logout') }}" class="btn btn-danger me-2"><b>Logout</b></a>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary me-2"><b>Back</b></a>
         </div>
 
     </div>
 </nav>
 
 <div class="dashboard-title">
-    <b>ADMIN DASHBOARD</b>
+    <b>EVENT MANAGEMENT</b>
 </div>
 
 <!-- CARDS -->
 <div class="container manage-wrapper">
-
-    <!-- FIRST ROW (3 CARDS) -->
     <div class="row justify-content-center g-5">
-        
-        <div class="col-md-4">
-            <div class="glass-card text-center">
-                <div class="card-icon">
-                    <img src="static/images/student.png" alt="Student">
-                </div>
-                <div class="card-title"><h5><b>Student Management</b></h5></div>
-                <div class="card-text">Update and maintain complete student records efficiently.</div>
-                <a href="{{ url_for('admin_manage_students') }}" class="btn btn-info btn-card"><b>Manage Students</b></a>
-            </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="glass-card text-center">
-                <div class="card-icon">
-                    <img src="static/images/faculty.png" alt="Faculty">
-                </div>
-                <div class="card-title"><h5><b>Faculty Management</b></h5></div>
-                <div class="card-text">Register, update and manage complete faculty accounts efficiently.</div>
-                <a href="{{ url_for('admin_manage_faculties') }}" class="btn btn-info btn-card"><b>Manage Faculties</b></a>
-            </div>
-        </div>
-
-        <div class="col-md-4">
+        <!-- ADD EVENT CARD -->
+        <div class="col-md-5">
             <div class="glass-card text-center">
                 <div class="card-icon-big">
-                    <img src="static/images/venue.png" alt="Venue">
+                    <img src="{{ url_for('static', filename='images/add_event.png') }}" alt="Add">
                 </div>
-                <div class="card-title"><h5><b>Venue Management</b></h5></div>
-                <div class="card-text">Create, update and manage complete venue details within the campus.</div>
-                <a href="{{ url_for('admin_manage_venues') }}" class="btn btn-info btn-card"><b>Manage Venues</b></a>
+                <div class="card-title"><h5><b>Add New Event</b></h5></div>
+                <div class="card-text">Announce new events in the system.</div>
+                <a href="{{ url_for('admin_add_event') }}" class="btn btn-info btn-card"><b>Add Event</b></a>
+            </div>
+        </div>
+
+        <!-- VIEW EVENTS CARD -->
+        <div class="col-md-5">
+            <div class="glass-card text-center">
+                <div class="card-icon-big">
+                    <img src="{{ url_for('static', filename='images/view_events.png') }}" alt="View">
+                </div>
+                <div class="card-title"><h5><b>View Announced Events</b></h5></div>
+                <div class="card-text">View existing event announcements.</div>
+                <a href="{{ url_for('admin_view_events') }}" class="btn btn-info btn-card"><b>View Events</b></a>
             </div>
         </div>
 
     </div>
-
-    <!-- SECOND ROW (2 CENTERED CARDS) -->
-    <div class="row justify-content-center g-5 mt-2 mb-5">
-
-        <div class="col-md-4">
-            <div class="glass-card text-center">
-                 <div class="card-icon-big">
-                    <img src="static/images/booking.png" alt="Booking">
-                </div>
-                <div class="card-title"><h5><b>Booking Management</b></h5></div>
-                <div class="card-text">Monitor and manage the booking requests from faculties.</div>
-                <a href="{{ url_for('admin_manage_bookings') }}" class="btn btn-info btn-card"><b>Manage Bookings</b></a>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="glass-card text-center">
-                <div class="card-icon">
-                    <img src="static/images/timetable.png" alt="timetable">
-                </div>
-                <div class="card-title"><h5><b>Event Management</b></h5></div>
-                <div class="card-text">Announce and publish new events happening in the campus.</div>
-                <a href="{{ url_for('admin_manage_events') }}" class="btn btn-info btn-card"><b>Manage Events</b></a>
-            </div>
-        </div>
-
-    </div>
-
 </div>
 
 </body>
