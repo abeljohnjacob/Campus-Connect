@@ -5,25 +5,27 @@ Campus Connect is a web-based college facility management system designed to pro
 ## 🔧Technologies Used
 
 - Frontend: HTML, CSS, Bootstrap 5
-- Backend: Python, Flask
-- Database: SQLite (to be integrated in next phase)
+- Backend: Python/Flask
+- Database: SQLite
 - Tools: VS Code, GitHub
 
 ## 👥 Modules
 
 - Student Module
-- Teacher Module
+- Faculty Module
 - Admin Module
 
-(Currently implemented with role-based routing using test credentials for demonstration.)
-
-## 🚀 Current Status (Review 2)
-
-- Landing page with Login and Register
-- Flask routing implemented
-- Role-based redirection (Student / Teacher / Admin)
-- Separate dashboards for each role
-- Database authentication will be implemented in the next phase
+## 🚀 Current Status
+- Landing page with Login and Register completed
+- Flask routing fully implemented
+- Role-based authentication with database integration
+- Separate dashboards for Student, Faculty, and Admin
+- Venue booking system implemented and functional
+- Chat module between Faculty and Students completed
+- Admin controls for managing users and venues
+- UI design finalized with responsive layout
+- Testing and validation completed for all modules
+- Project successfully committed and pushed to GitHub
 
 ## 👨‍🎓 Student Details
 
@@ -38,4 +40,4 @@ Campus Connect is a web-based college facility management system designed to pro
 ## 🔗 Repository
 
 https://github.com/abeljohnjacob/Campus-Connect
-This repository contains the first working version of the Campus Connect project created as part of MCA Main Project.
+This repository contains the full working version of the Campus Connect project created as part of MCA Main Project.
