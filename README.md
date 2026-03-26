@@ -16,6 +16,7 @@ Campus Connect is a web-based college facility management system designed to pro
 - Admin Module
 
 ## 🚀 Current Status
+
 - Landing page with Login and Register completed
 - Flask routing fully implemented
 - Role-based authentication with database integration
